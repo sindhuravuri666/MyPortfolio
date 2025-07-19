@@ -1,31 +1,61 @@
+// src/Components/BackgroundEffect.jsx
+import React, { useCallback } from "react";
+import Particles from "react-tsparticles";
+import { loadFull } from "tsparticles";
+
 const BgEffect = () => {
+  const particlesInit = useCallback(async (engine) => {
+    await loadFull(engine);
+  }, []);
+
   return (
-    <div className="absolute inset-0 z-0 overflow-hidden">
-      {/* Stars */}
-      {[...Array(60)].map((_, i) => (
-        <div
-          key={i}
-          className="absolute w-[2px] h-[2px] bg-white rounded-full opacity-30 animate-pulse"
-          style={{
-            top: `${Math.random() * 100}%`,
-            left: `${Math.random() * 100}%`,
-          }}
-        />
-      ))}
-      {/* Meteors */}
-      {[...Array(4)].map((_, i) => (
-        <div
-          key={`meteor-${i}`}
-          className="absolute w-[1px] h-[120px] bg-white opacity-20 animate-meteor-fall"
-          style={{
-            top: `${Math.random() * 80}%`,
-            left: `${Math.random() * 100}%`,
-            transform: "rotate(-45deg)",
-            animationDelay: `${i * 3}s`,
-          }}
-        />
-      ))}
-    </div>
+    <Particles
+      id="tsparticles"
+      init={particlesInit}
+      options={{
+        fullScreen: { enable: true, zIndex: -1 },
+        background: {
+          color: { value: "#0f0c29" }, // Deep galaxy color
+        },
+        particles: {
+          number: {
+            value: 80,
+            density: { enable: true, area: 800 },
+          },
+          color: {
+            value: ["#ffffff", "#a855f7", "#38bdf8"], // white, violet, blue
+          },
+          shape: {
+            type: ["circle", "star"],
+          },
+          opacity: {
+            value: 0.6,
+            random: true,
+          },
+          size: {
+            value: { min: 1, max: 3 },
+            random: true,
+          },
+          move: {
+            enable: true,
+            speed: 0.6,
+            direction: "bottom-right",
+            outModes: { default: "out" },
+          },
+        },
+        interactivity: {
+          events: {
+            onHover: { enable: true, mode: "repulse" },
+            onClick: { enable: true, mode: "push" },
+          },
+          modes: {
+            repulse: { distance: 100 },
+            push: { quantity: 4 },
+          },
+        },
+        detectRetina: true,
+      }}
+    />
   );
 };
 
