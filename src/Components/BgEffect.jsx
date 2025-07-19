@@ -1,5 +1,4 @@
-// src/Components/BackgroundEffect.jsx
-const BackgroundEffect = () => {
+const BgEffect = () => {
   return (
     <div className="absolute inset-0 z-0 overflow-hidden">
       {/* Stars */}
@@ -30,4 +29,4 @@ const BackgroundEffect = () => {
   );
 };
 
-export default BackgroundEffect;
+export default BgEffect;
